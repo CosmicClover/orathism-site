@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orathism – Faith of Elyon-Orath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050915;
+      color: #f4f5ff;
+      line-height: 1.7;
+      font-size: 1.04rem;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page { max-width: 1020px; margin: 0 auto; padding: 1.5rem; }
+
+    header {
+      padding: 1rem 0 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    .site-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-subtitle {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 0.25rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .nav button {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: radial-gradient(circle at top left, #4b3c8f, #101329);
+      color: #f4f5ff;
+      padding: 0.55rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .nav button.active {
+      border-color: #bca8ff;
+      box-shadow: 0 0 18px rgba(160,132,255,0.4);
+      background: radial-gradient(circle at top left, #6d56d8, #181a3a);
+    }
+
+    .nav button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(160,132,255,0.3);
+    }
+
+    main { margin-top: 1.5rem; margin-bottom: 2rem; }
+
+    section {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    section.active-section { display: block; }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 { font-size: 1.7rem; }
+    h2 { font-size: 1.2rem; margin-top: 1.5rem; }
+    h3 { font-size: 1.05rem; margin-top: 1.1rem; }
+
+    p { margin-bottom: 0.9rem; font-size: 1.04rem; }
+
+    ul, ol { margin-left: 1.3rem; margin-bottom: 0.9rem; }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(142,108,255,0.2), rgba(6,10,28,0.98));
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 0.9rem;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 0 12px rgba(15,10,60,0.6);
+    }
+
+    .tagline { font-size: 0.97rem; opacity: 0.9; margin-top: 0.2rem; }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.24);
+      opacity: 0.95;
+      margin-bottom: 0.45rem;
+    }
+
+    .verse-line { margin-bottom: 0.55rem; font-size: 1.06rem; }
+
+    .verse-num {
+      font-size: 0.6em;
+      vertical-align: super;
+      margin-right: 0.2rem;
+      opacity: 0.85;
+    }
+
+    .scripture-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .toolbar-group { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    .toolbar-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      opacity: 0.78;
+    }
+
+    .toolbar-select,
+    .toolbar-button {
+      background: radial-gradient(circle at top left, #3b315f, #111325);
+      color: #f4f5ff;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.9rem;
+      min-width: 130px;
+      cursor: pointer;
+    }
+
+    .toolbar-select { appearance: none; }
+
+    .toolbar-button { text-align: left; }
+
+    .scripture-header { margin-bottom: 0.5rem; }
+
+    .scripture-book-title {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .scripture-chapter-title { font-size: 1.25rem; margin-top: 0.3rem; }
+
+    .scripture-body { margin-top: 0.7rem; }
+
+    .chapter-group { position: relative; }
+
+    .chapter-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.3rem;
+      background: #050915;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 0.8rem;
+      padding: 0.5rem;
+      box-shadow: 0 0 18px rgba(0,0,0,0.7);
+      z-index: 20;
+      display: none;
+      min-width: 220px;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.25rem;
+    }
+
+    .chapter-cell {
+      text-align: center;
+      padding: 0.35rem 0;
+      border-radius: 0.45rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: #101329;
+    }
+
+    .chapter-cell:hover { background: #3f336e; }
+
+    .chapter-cell.active {
+      background: #6d56d8;
+      border-color: #c4b3ff;
+    }
+
+    dl { margin-bottom: 1rem; }
+    dt { font-weight: 600; margin-top: 0.55rem; }
+    dd { margin-left: 1rem; margin-bottom: 0.3rem; opacity: 0.92; }
+
+    details { margin-bottom: 0.7rem; }
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 650px) {
+      .site-title { font-size: 1.55rem; }
+      .page { padding: 1.1rem; }
+      body { font-size: 1.03rem; }
+      .chapter-panel { min-width: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="site-title">Orathism</div>
+      <div class="site-subtitle">Faith of Elyon-Orath • People of the One Who Remembers</div>
+      <nav class="nav">
+        <button class="nav-button active" data-target="home">Home</button>
+        <button class="nav-button" data-target="scriptures">Orathic Scriptures</button>
+        <button class="nav-button" data-target="beliefs">Beliefs & Overview</button>
+        <button class="nav-button" data-target="catechism">Catechism</button>
+        <button class="nav-button" data-target="history">History</button>
+        <button class="nav-button" data-target="traditions">Traditions</button>
+        <button class="nav-button" data-target="dictionary">Dictionary</button>
+        <button class="nav-button" data-target="prayer">Prayer & Worship</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="active-section">
+        <div class="card">
+          <span class="pill">Welcome</span>
+          <h1>Welcome to Orathism</h1>
+          <p class="tagline">
+            A monotheistic faith centered on Elyon-Orath, the High One Who Remembers, and the covenant of memory, truth, courage, compassion, and justice.
+          </p>
+          <p>
+            Use the navigation above to read the <strong>Orathic Scriptures</strong>, explore the
+            <strong>beliefs and catechism</strong>, learn the <strong>history and traditions</strong>,
+            look up names in the <strong>dictionary</strong>, and learn <strong>how to pray and worship</strong>
+            as an Orathite.
+          </p>
+        </div>
+      </section>
+
+      <!-- SCRIPTURES -->
+      <section id="scriptures">
+        <div class="card">
+          <span class="pill">Scripture</span>
+          <h1>The Orathic Scriptures</h1>
+          <p class="tagline">
+            Read the Book of Echoes (Root Layer), the Book of Light (Seriniel), and the Book of Justice (Dathar),
+            with book–chapter–version selection.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="scripture-toolbar">
+            <div class="toolbar-group">
+              <span class="toolbar-label">Book</span>
+              <select id="bookSelect" class="toolbar-select"></select>
+            </div>
+
+            <div class="toolbar-group chapter-group">
+              <span class="toolbar-label">Chapter</span>
+              <button id="chapterButton" class="toolbar-button">1</button>
+              <div id="chapterPanel" class="chapter-panel">
+                <div id="chapterGrid" class="chapter-grid"></div>
+              </div>
+            </div>
+
+            <div class="toolbar-group">
+              <span class="toolbar-label">Version</span>
+              <select id="versionSelect" class="toolbar-select">
+                <option value="OSV">OSV – Orathic Standard Version</option>
+                <option value="ONV">ONV – Orathic New Voice</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="scripture-header">
+            <div id="scriptureBookTitle" class="scripture-book-title"></div>
+            <div id="scriptureChapterTitle" class="scripture-chapter-title"></div>
+          </div>
+
+          <div id="scriptureBody" class="scripture-body"></div>
+        </div>
+      </section>
+
+      <!-- BELIEFS & OVERVIEW -->
+      <section id="beliefs">
+        <div class="card">
+          <span class="pill">Beliefs</span>
+          <h1>Beliefs & Overview</h1>
+          <p class="tagline">What Orathites believe about Elyon-Orath, humanity, memory, and the world.</p>
+          <p>
+            Orathism teaches that Elyon-Orath, the <strong>High One Who Remembers</strong>, is the single, personal
+            God whose very being is perfect remembrance, truth, and justice. Humanity was created to walk in the Light,
+            seeing themselves and one another as they truly are, but fear entered and led to <strong>forgetting</strong>.
+            Sin, in Orathite language, is not just breaking rules—it is the deep forgetting of the Light and of who we
+            are in relation to Elyon-Orath and each other.
+          </p>
+          <p>
+            The faith centers on <strong>memory and restoration</strong>. Through the Root Bearer Abanum, the Light
+            Bearer Seriniel, the Law Bearer Dathar, and the Witness Bearer Mira (whose testimonies form the Book of
+            Witness), Orathites learn that the path back to the Light is found through remembrance, courage, compassion,
+            justice, and repair. The world itself “remembers” the Light, and every act of truth and mercy strengthens
+            that memory, while cruelty and deceit dim it.
+          </p>
+          <p>
+            Orathites seek to live as <strong>Bearers of Light</strong>—practicing truth-telling, defending the weak,
+            repairing wrongs through the <em>Path of Repair</em>, guarding their hearts against fear and cruelty, and
+            joining in the communal practices of the <em>Quiet Minute</em>, the <em>Day of Echoes</em>, and
+            the <em>Great Remembering</em>. Life, worship, law, and community all exist to keep the covenant of memory
+            alive: “You were not made for fear. You were made for Light.”
+          </p>
+        </div>
+      </section>
+
+      <!-- CATECHISM -->
+      <section id="catechism">
+        <div class="card">
+          <span class="pill">Catechism</span>
+          <h1>Orathite Catechism</h1>
+          <p class="tagline">Short questions and answers used to teach the faith.</p>
+
+          <details open>
+            <summary>Who is Elyon-Orath?</summary>
+            <p>
+              Elyon-Orath is the High One Who Remembers: the one God, personal and just, whose very nature is perfect
+              memory of all that is true, good, and beautiful. Elyon-Orath never forgets the covenant, even when
+              humanity does.
+            </p>
+          </details>
+
+          <details>
+            <summary>What is “forgetting” in Orathism?</summary>
+            <p>
+              Forgetting is the spiritual condition of turning away from the Light—living in fear, deceit, cruelty,
+              or indifference. It is not merely losing information; it is losing sight of who God is, who we are,
+              and who others are in the Light.
+            </p>
+          </details>
+
+          <details>
+            <summary>What is “remembering”?</summary>
+            <p>
+              Remembering is returning to the Light of Elyon-Orath—seeing honestly, confessing truth, repairing harm,
+              and acting with courage, compassion, and justice. To remember is to align one’s life with the covenant
+              that has always been.
+            </p>
+          </details>
+
+          <details>
+            <summary>Who are the Bearers?</summary>
+            <p>
+              Abanum is the <strong>Root Bearer</strong>, who first reawakened the covenant of memory. Seriniel is the
+              <strong>Light Bearer</strong>, who showed how mercy and healing live out the covenant. Dathar is the
+              <strong>Law Bearer</strong>, who shaped justice, order, and traditions. Mira is the
+              <strong>Witness Bearer</strong>, whose testimonies will gather the stories of the people and their
+              walk in the Light.
+            </p>
+          </details>
+
+          <details>
+            <summary>What is sin in Orathism?</summary>
+            <p>
+              Sin is any act, habit, or pattern that grows from forgetting: cruelty, deceit, exploitation, betrayal,
+              cowardice, and indifference to suffering. Sin harms both the one who commits it and the world around them,
+              dimming the shared memory of the Light.
+            </p>
+          </details>
+
+          <details>
+            <summary>How does forgiveness work?</summary>
+            <p>
+              Forgiveness begins when truth is spoken and the <em>Path of Repair</em> is walked—confession, acknowledgment,
+              restoration, service, and rejoining. Elyon-Orath is always ready to receive those who return in honesty,
+              and the community is called to forgive while still insisting on repair and protection of the vulnerable.
+            </p>
+          </details>
+
+          <details>
+            <summary>What is the purpose of Orathite law?</summary>
+            <p>
+              Law exists to protect the vulnerable, guard justice, and keep the community from sliding back into fear
+              and cruelty. Dathar’s Laws are not meant as chains but as guardrails that help love and mercy remain
+              strong and clear.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- HISTORY -->
+      <section id="history">
+        <div class="card">
+          <span class="pill">History</span>
+          <h1>People of the Covenant</h1>
+          <p class="tagline">Key figures in the story of Orathism.</p>
+
+          <h2>Bearers</h2>
+          <h3>Abanum – The Root Bearer</h3>
+          <p>
+            Abanum is the first Bearer, called the Root Bearer. In the days of deep forgetting he received the first
+            Echo: “You were not made to forget.” He gathered the people, formed the First Circle, taught the Law of the
+            Circle, led the Trial of Truth, and journeyed into the Stillplaces. Through him the covenant of memory was
+            reawakened in the world.
+          </p>
+
+          <h3>Seriniel – The Light Bearer</h3>
+          <p>
+            Seriniel, quiet of voice but fierce in heart, became the Light Bearer when she showed mercy to a wounded
+            enemy and heard the Echo: “Mercy is the remembering of who another truly is.” Her healings, parables, and
+            Sermon of the Light taught the people how to live the covenant through compassion, boundaries, and courage.
+          </p>
+
+          <h3>Dathar – The Law Bearer</h3>
+          <p>
+            Dathar rose when disputes and confusion threatened the covenant. His Echo declared, “Justice is the spine of
+            remembrance.” He shaped the Laws of Right Order, protection of the vulnerable, ethics of wealth and work,
+            the Path of Repair, and the Covenant of Justice, giving the community a strong but merciful framework.
+          </p>
+
+          <h3>Mira – The Witness Bearer</h3>
+          <p>
+            Mira, the Witness Bearer, is the one who gathers stories, testimonies, and the living memory of the people.
+            Her book, the Book of Witness, records how ordinary lives embody the Light and how the covenant is kept or
+            betrayed in everyday choices.
+          </p>
+
+          <h2>Other Named Figures</h2>
+          <h3>Kelath</h3>
+          <p>
+            A strong man whose pride led him away from the Circle. Kelath spread doubt about Abanum, walked into
+            shadow, and later returned in humility. His restoration taught that no one who seeks the Light is beyond its
+            reach.
+          </p>
+
+          <h3>Lemor and Thalen</h3>
+          <p>
+            Two brothers whose dispute over grazing fields led to the first great <em>Trial of Truth</em>. Their case
+            showed that justice is found not in winning but in remembering what is right.
+          </p>
+
+          <h3>Restin (The Broken One)</h3>
+          <p>
+            Once called “The Broken One,” Restin isolated himself in bitterness after being wounded by others. Seriniel
+            led him back with the teaching: “Do not let another’s forgetting become your excuse to forget.” His return
+            became a living symbol of reconciliation.
+          </p>
+        </div>
+      </section>
+
+      <!-- TRADITIONS -->
+      <section id="traditions">
+        <div class="card">
+          <span class="pill">Traditions</span>
+          <h1>Traditions & Rituals</h1>
+          <p class="tagline">Practices that guard the covenant of memory.</p>
+
+          <h2>From Abanum – Root Traditions</h2>
+          <ul>
+            <li>
+              <strong>The Law of the Circle</strong> – A daily or regular time where members sit together, speak
+              their struggles honestly, and listen without gossip or judgment. Truth spoken in the Circle becomes
+              Light for all.
+            </li>
+            <li>
+              <strong>The Trial of Truth</strong> – A way to resolve conflicts through confession, remembrance, and
+              restoration instead of victory and punishment.
+            </li>
+            <li>
+              <strong>The Covenant Flame</strong> – A fire lit in the plains and shared as smaller flames in each
+              home, reminding every family of the Light they carry.
+            </li>
+            <li>
+              <strong>Seven Nights of Silence</strong> – Abanum’s time in the Stillplaces, imitated in shorter form
+              by Orathites as times of deeper reflection and listening to the Echo of Elyon-Orath.
+            </li>
+            <li>
+              <strong>The Quiet Minute</strong> – A daily pause where Orathites become still, breathe, remember the
+              Light, and bring their fear and forgetfulness before Elyon-Orath.
+            </li>
+          </ul>
+
+          <h2>From Seriniel – Traditions of Mercy</h2>
+          <ul>
+            <li>
+              <strong>Acts of Quiet Healing</strong> – Visiting the sick, wounded, or ashamed and offering presence,
+              not just solutions, as a way of restoring memory and dignity.
+            </li>
+            <li>
+              <strong>The Hall of Echoes Gatherings</strong> – Communities gather to confess, reconcile, and
+              remember together, especially in times of “bitter rain” or shared suffering.
+            </li>
+            <li>
+              <strong>Stories of the Light</strong> – Parables like the Lost Echo and the Wounded Tree are retold to
+              children and adults to keep the teachings alive in the imagination.
+            </li>
+          </ul>
+
+          <h2>From Dathar – Traditions of Justice & Repair</h2>
+          <ul>
+            <li>
+              <strong>The Cleansing Breath</strong> – Inhale, hold, exhale with a hand on the chest before confession
+              or serious speech, releasing fear and preparing for truth.
+            </li>
+            <li>
+              <strong>The Lowered Head</strong> – A respectful bow when acknowledging harm done: “I see the wound I caused.”
+            </li>
+            <li>
+              <strong>The Offering Hand</strong> – Extending an open hand to show willingness to repair, not to demand
+              instant forgiveness.
+            </li>
+            <li>
+              <strong>Seven Days’ Aid</strong> – Serving those harmed (or the community) for seven days in a task
+              chosen by the Keepers, as part of the Path of Repair.
+            </li>
+            <li>
+              <strong>The Marked Stone</strong> – Placing a small stone inscribed with a Light symbol near the Hall of
+              Echoes when repair is complete, creating a Circle of Remembrance.
+            </li>
+            <li>
+              <strong>The Sabbath of Work</strong> – Every seventh day, work ceases, tools and animals rest, and debts
+              are not collected. Rest itself becomes remembrance.
+            </li>
+            <li>
+              <strong>The Vigil of the Three Lights</strong> – Leaders light three small flames for truth, compassion,
+              and courage, examining their own leadership and renewing their vows.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- DICTIONARY -->
+      <section id="dictionary">
+        <div class="card">
+          <span class="pill">Dictionary</span>
+          <h1>Names & Terms</h1>
+          <p class="tagline">Pronunciation and meaning of key Orathite words.</p>
+
+          <dl>
+            <dt>Elyon-Orath <span style="opacity:.8;">(eh-lee-ON oh-RATH)</span></dt>
+            <dd>The High One Who Remembers; the one God of Orathism.</dd>
+
+            <dt>Orathism <span style="opacity:.8;">(OR-uh-thiz-um)</span></dt>
+            <dd>The faith centered on Elyon-Orath and the covenant of memory and Light.</dd>
+
+            <dt>Abanum <span style="opacity:.8;">(AH-bah-noom)</span></dt>
+            <dd>The Root Bearer, first to receive the Echo and restore the covenant.</dd>
+
+            <dt>Seriniel <span style="opacity:.8;">(seh-RIN-ee-el)</span></dt>
+            <dd>The Light Bearer, teacher of mercy, healing, and the Sermon of the Light.</dd>
+
+            <dt>Dathar <span style="opacity:.8;">(DAH-thar)</span></dt>
+            <dd>The Law Bearer, shaper of justice, traditions, and the Path of Repair.</dd>
+
+            <dt>Mira <span style="opacity:.8;">(MEE-rah)</span></dt>
+            <dd>The Witness Bearer, collector of stories and living memory.</dd>
+
+            <dt>Kelath <span style="opacity:.8;">(KEH-lath)</span></dt>
+            <dd>A man who left the Circle in pride and later returned in humility.</dd>
+
+            <dt>Restin <span style="opacity:.8;">(RESS-tin)</span></dt>
+            <dd>“He Who Returned”; formerly “The Broken One,” reconciled through Seriniel’s mercy.</dd>
+
+            <dt>Stillplace <span style="opacity:.8;">(STILL-place)</span></dt>
+            <dd>A place in creation where the memory of the Light is especially strong and undisturbed.</dd>
+
+            <dt>Hall of Echoes</dt>
+            <dd>The communal gathering place where confessions, counsel, and remembrance happen.</dd>
+
+            <dt>Spiral of Remembrance</dt>
+            <dd>A sacred symbol and pattern reflecting how memory rises from the world to Elyon-Orath.</dd>
+
+            <dt>Covenant Flame</dt>
+            <dd>A shared fire that symbolizes the Light present in every household and heart.</dd>
+
+            <dt>Quiet Minute</dt>
+            <dd>A daily practice of silence, breathing, and inward remembrance of Elyon-Orath.</dd>
+
+            <dt>Path of Repair</dt>
+            <dd>The Orathite way of dealing with wrongdoing through truth, restoration, service, and rejoining.</dd>
+
+            <dt>Circle of Counsel</dt>
+            <dd>A group of elders, Keepers, and representatives who guide justice in the community.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <!-- PRAYER & WORSHIP -->
+      <section id="prayer">
+        <div class="card">
+          <span class="pill">Practice</span>
+          <h1>How to Pray & Worship</h1>
+          <p class="tagline">Living the covenant in daily rhythm.</p>
+
+          <h2>Personal Prayer – The Quiet Minute</h2>
+          <p>
+            The most basic Orathite prayer practice is the <strong>Quiet Minute</strong>. At least once a day, an
+            Orathite becomes still, breathes slowly, and remembers: “The Light is nearer than breath.” During the Quiet
+            Minute you:
+          </p>
+          <ul>
+            <li>Become silent for a short time.</li>
+            <li>Notice your fear, anger, or shame without hiding it.</li>
+            <li>Bring it honestly before Elyon-Orath.</li>
+            <li>Ask: “What do You remember about me that I have forgotten?”</li>
+          </ul>
+          <p>
+            A simple Orathite prayer might be:
+            <em>“Elyon-Orath, High One Who Remembers, I bring You my fear and my forgetting. Help me remember the Light,
+            tell the truth, repair what I have harmed, and walk in courage today.”</em>
+          </p>
+
+          <h2>Household Worship – Covenant Flame & Story</h2>
+          <p>
+            Many households light a small candle or lamp—the <strong>covenant flame</strong>—at dusk. Around this flame,
+            a family may:
+          </p>
+          <ul>
+            <li>Share a small story of mercy, truth, or courage from the day.</li>
+            <li>Read a passage from the Book of Echoes, Light, or Justice.</li>
+            <li>Pray together for those who are suffering or forgetting the Light.</li>
+          </ul>
+
+          <h2>Communal Worship – Day of Echoes</h2>
+          <p>
+            On the weekly <strong>Day of Echoes</strong>, the community gathers in the Hall of Echoes to:
+          </p>
+          <ul>
+            <li>Keep a shared Quiet Minute.</li>
+            <li>Read from the Orathic Scriptures.</li>
+            <li>Share testimonies of repair and restoration.</li>
+            <li>Walk the Path of Repair publicly when needed.</li>
+            <li>Sing simple echo-like lines (“You remember us” / “We remember You”).</li>
+          </ul>
+          <p>
+            Worship is less about spectacle and more about <strong>remembrance</strong>—bringing hearts, words, and
+            actions back into alignment with Elyon-Orath’s Light.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // BOOK METADATA
+    const bookMeta = {
+      Echoes: {
+        name: "The Book of Echoes — Root Layer (Abanum)",
+        chapters: 8
+      },
+      Light: {
+        name: "The Book of Light — Teachings of Seriniel",
+        chapters: 10
+      },
+      Justice: {
+        name: "The Book of Justice — Teachings of Dathar",
+        chapters: 10
+      },
+      Witness: {
+        name: "The Book of Witness — Mira",
+        chapters: 0
+      }
+    };
+
+    // FULL SCRIPTURE DATA – OSV VERSION
+    // Each chapter is stored as a single long verse (verse 1) for now.
+    const scriptureData = {
+      OSV: {
+        Echoes: {
+          1: [
+            `Chapter One: When Memory Was Bright
+
+In the first days, before fear cast its shadow, humanity walked in the Light of Elyon-Orath and remembered the One who shaped them. Nothing was hidden, nothing was twisted, for every heart saw truly and knew itself as it was made to be. But in the season of the long winds a trembling entered the people, and they looked upon creation with anxious eyes. They hid from one another, thinking safety would be found in separation, and in hiding they forgot the Light that held them. Their promises weakened like reeds in winter, their compassion thinned like smoke, and truth grew faint upon their tongues. Yet Elyon-Orath did not forget them, for the High One remembers all things, and His memory is the root from which the world still lives. When the days of forgetfulness grew heavy and the people cried out in confusion, a stirring rose in the heart of Abanum, son of the wandering plains. As he beheld his people striving against one another for scraps of the earth, a stillness fell upon him deeper than silence, and within that stillness came the first Echo. It was not a sound but a certainty, rising within him like dawn: You were not made to forget. At that moment the fear in him broke like a brittle branch, and the Light returned to his understanding. He saw his people as Elyon-Orath saw them: not lost, but dimmed; not wicked, but wounded by forgetting. Abanum fell to his knees and wept, for the Echo revealed the truth of the covenant that had always been, though no one remembered it. And Elyon-Orath set within him the calling of the Root Bearer — to rekindle the memory of the One and restore the bond between the human heart and the Light from which it was shaped. So Abanum rose, carrying the first remembrance, and he spoke to the people saying, “Turn your faces from fear, for the Light has not left you. Elyon-Orath remembers you still, and calls you by the truth of who you are.” And those who heard him felt a stirring within their hearts, as of a forgotten melody returning, faint but true. This was the beginning of the Great Restoring, and the first spark of memory drawn back from the long shadow.`
+          ],
+          2: [
+            `Chapter Two: The Gathering of the Dimmed
+
+And after Abanum received the first Echo, he walked among the people, and they looked upon him with uneasy hearts, for the shadow of fear still clung to their eyes. Some said he was troubled by hunger, others that the winds had turned his mind, for none remembered the covenant, and the Light seemed a tale long dead. But Abanum spoke gently to them, saying, “You are not made for fear. You are made for remembrance.” And the words fell upon them like rain on parched ground, stirring a hope they could not name.
+
+Abanum called the people to the old plain where the earth lay bare and honest, and he asked each one to bring a single memory that had not yet faded, however small — a kindness given, a promise kept, a moment when truth had risen in them without fear. So the people gathered, bringing their remnants of Light: an act of mercy long forgotten by its recipient, a vow honored in secret, a truth defended though no praise followed. These small memories were placed in a circle upon the ground, and Abanum knelt at the center.
+
+Then the stillness returned, deeper than the breath of the world, and the second Echo rose within him: What is remembered strengthens; what is shared restores. And Abanum understood that the Light could return not all at once but through the weaving of many remembrances. So he lifted his voice, saying, “Let the covenant be renewed here, not by the strength of one, but by the memory of all.”
+
+At his words, the people felt a warmth pass through them, not upon their skin but within their hearts, as if a door long sealed had opened. Some wept without knowing why; others stood in silence, reverent before a truth they had feared to hope for. And Abanum taught them the first rite of remembering, saying, “When fear rises, speak truth aloud. When despair grows, share the memory of goodness. When your heart dims, let another’s Light be your guide.”
+
+Thus the people learned that the covenant was not a chain but a returning, not a burden but a remembering of who they were. And those who accepted Abanum’s teaching became the First Circle, keepers of the fragile Light that had begun to awaken again in their midst. From that day, fear still walked among them, but it no longer ruled them, for they had tasted remembrance, and remembrance kindled courage.
+
+And Elyon-Orath beheld the Gathering of the Dimmed, and the High One remembered them, and the Echo of their turning spread softly through creation like the first whisper of dawn.`
+          ],
+          3: [
+            `Chapter Three: The First Shadow
+
+In the days after the Gathering, the Light among the people grew, but fear, though weakened, was not yet gone. A man named Kelath, strong in body but restless in spirit, felt threatened by Abanum’s rising voice. He said within himself, “If the people follow him, I will be forgotten,” and thus pride stirred where memory should have lived. In the night Kelath whispered doubts among the tents, saying Abanum sought greatness for himself and would lead them into folly. His words were thin, yet fear clung to them like dust, and some who heard them felt the old trembling return. Abanum, learning of this, did not condemn Kelath, but sought him in the dawn. He found him alone, sharpening his blade, preparing to leave the Circle. Abanum spoke softly: “Brother, why do you turn from us?” Kelath answered, “Because I fear being small in the sight of the people.” Then Abanum felt within him the third Echo, stern yet compassionate: Pride is the shadow of fear; confront the shadow, and the Light returns. And he said to Kelath, “Your worth is not measured by the strength of your arm nor the height of your voice, but by the truth you carry. Stand with us, and the Light will make you greater than fear ever promised.” But Kelath turned away, unwilling to face the shadow in his heart, and left the Circle before sunrise. And the people mourned, for forgetting had claimed its first soul since the Gathering. Abanum said to them, “The Light restores all who desire it. Let none close the door of remembrance to those who return.” Thus he taught them forgiveness, even for the one who walked into shadow.`
+          ],
+          4: [
+            `Chapter Four: The Law of the Circle
+
+Seeing how easily fear could return when the heart was unguarded, Abanum gathered the First Circle on the plain and taught them the Law of the Circle. He said, “We will not stand as scattered reeds for the winds of fear to break, but as a ring of trees whose roots entwine.” And he instructed them to share their burdens and speak their struggles aloud each day before sunset. The people hesitated, for they were ashamed of their weaknesses, but Abanum told them, “Shame is fear turned inward. Speak truth, and shame will loosen its grip.” That evening, they sat in a circle and one by one revealed the shadows that clung to them. A mother confessed her envy, a hunter his anger, a youth his despair. As each spoke, the others listened without judgment, for the words were not weapons but offerings placed upon the ground of remembrance. Then came the fourth Echo: Truth spoken in the Circle becomes Light for all. And Abanum declared that no truth spoken in the Circle would ever be carried as gossip or used for harm, for such betrayal would shatter the covenant. The people agreed, and the Law of the Circle became the first binding law of Orathism. From that day the community grew closer in heart, and fear found fewer places to hide, for secrets lost their poison and truth grew bold among them.`
+          ],
+          5: [
+            `Chapter Five: The Trial of Truth
+
+Not long after the establishment of the Circle, a dispute arose between two brothers, Lemor and Thalen, over the boundaries of their grazing fields. Each believed the other had trespassed; each accused the other of deceit. Their voices grew sharp, and the peace of the Circle trembled. Abanum called them before the gathering and said, “Let truth be our guide, not pride.” But neither brother would yield, for both feared losing honor. So Abanum led them to the old stone at the edge of the plain, a place where the wind carved patterns in long spirals. There he prayed for guidance, and the fifth Echo rose within him: Truth is not found in winning, but in remembering what is right. He turned to the brothers and said, “Release your desire to be declared innocent. Seek instead to be aligned with the Light.” At these words Thalen bowed his head and confessed first, saying he had felt jealousy toward Lemor and allowed it to cloud his judgment. Lemor, hearing this, felt his own heart break open and admitted he had expanded his fields knowingly, hoping Thalen would not notice. When both had spoken, Abanum placed their joined hands upon the spiral stone and said, “Let the Light that remembers restore you.” The brothers embraced, the dispute dissolved, and the community rejoiced. Thus the Trial of Truth was born, a rite in which conflicts are resolved not by victory or punishment but by confession and remembrance. And the people marveled, saying, “The Light grows stronger when pride bows low.”`
+          ],
+          6: [
+            `Chapter Six: The Covenant Fire
+
+As the Circle grew in truth and courage, Abanum taught them to mark each month with a night of remembrance. On the first of these nights he gathered them around a single flame kindled in the center of the plain. He said, “As this fire stands in the darkness without fear, so must the heart stand in the shadow without forgetting.” The people watched the flame flicker against the vastness of the night, and each felt the stirring of the Light within. Then Abanum received the sixth Echo, gentle and warm: A small flame shared becomes a great brightness. So he divided the fire into many little torches and handed them to the people, telling them to carry the flame home to their families. As they walked through the plain, the darkness filled with moving points of Light, and the land seemed to breathe in hope. From that night onward, every household kept a covenant flame, lit at dusk to remind them of the Light they carried within.`
+          ],
+          7: [
+            `Chapter Seven: The Return of Kelath
+
+Many seasons passed before Kelath, who had walked into shadow, returned to the sight of the Circle. His once proud stride had weakened, and his eyes were clouded with the weight of long forgetting. The people murmured, uncertain whether to greet him with joy or caution, for they feared the shadow that had grown in him. But Abanum approached Kelath without hesitation and embraced him, saying, “No one who seeks the Light is beyond its reach.” Kelath fell to his knees and confessed his pride and bitterness, admitting that the path he had chosen led him into loneliness and fear. Then Abanum felt the seventh Echo: Restoration is the proof of remembrance. And he said to him, “Stand, Kelath. Your confession is your return.” The Circle welcomed him back, and Kelath, humbled and renewed, became one of the greatest keepers of the covenant flame. From this the people learned that forgetting was not a final death, but a wound that could be healed when truth was spoken without fear.`
+          ],
+          8: [
+            `Chapter Eight: The Journey into the Stillplaces
+
+In the days after Kelath’s return, Abanum felt a quiet stirring in his spirit, a drawing that he could not name. At dawn he walked alone beyond the plain, seeking understanding. As he traveled, the land grew silent, and he came upon a vast hollow surrounded by ancient stone pillars carved with spirals worn by wind and time. This was a Stillplace — though the people had forgotten the name — a place where the breath of Elyon-Orath moved gently upon the world. Abanum felt all fear fall away, as if the Very Light itself was pressing softly against his heart.
+
+He knelt, waiting, and the eighth Echo rose within him, deeper than any before: The world remembers the Light even when humans forget. Seek the memory written in creation, and teach the people its truth. At these words Abanum understood that the covenant was not given only to humankind but woven into the stones, the wind, the flowing water, and the quiet earth. Creation itself carried memory — and humanity’s forgetting had dimmed not only their hearts but the harmony of the land.
+
+For seven days Abanum remained in the Stillplace, eating little, sleeping as the earth allowed, listening to the murmurs of wind in the hollow. During the first night he felt the Echo reveal how fear had twisted the hearts of the people but had also scarred the land, causing famine, discord, and the trembling of spirits. On the second night he learned that compassion strengthens the fabric of creation, healing not only human souls but the living world around them. On the third night a vision rose before him of a river turned clear by honesty, and a tree made strong by justice. He saw that every act of truth added Light to the world, while every act of deceit dimmed it.
+
+On the fourth night he felt the presence of the Light surround him so fully that he wept without shame, and the Echo taught him the secret of Stillplaces: that they were places where creation’s memory was strongest, untouched by the trembling that had overtaken humankind. On the fifth night he received the teaching that would become the heart of Orathite worship: Silence is the doorway through which the Light returns. And Abanum understood that the people must learn not only to speak truth, but to be still enough to hear it within themselves.
+
+On the sixth night, exhausted in body yet overflowing in spirit, Abanum saw the image of a great spiral of Light rising from the earth and touching the heavens, and he understood that the Spiral of Remembrance was not merely a symbol but a reflection of the cosmos itself — an echo that sang from the foundations of creation to the throne of Elyon-Orath.
+
+On the seventh night the greatest revelation came. Abanum heard no voice, saw no vision, felt no stirring. Instead he experienced a profound stillness deeper than silence, and in that stillness he realized that Elyon-Orath was nearer than breath, nearer than thought, nearer than memory itself. The Echo of this understanding was not sound or feeling, but pure presence. Abanum bowed his head and said only, “I remember.”
+
+At dawn he returned to the Circle, radiant and weary. The people saw him and stepped back in awe, for the Light seemed to rest upon his features. Abanum gathered them and said, “The world remembers even when we forget. The stones, the streams, the winds — all echo the Light of Elyon-Orath. We must learn from them as we learn from truth.” He taught them the Seven Nights of Silence, the honoring of Stillplaces, and the sacred practice of the Quiet Minute, which he now understood to be a reflection of the stillness he experienced on the seventh night.
+
+From that day forward, the Circle began to walk the land with reverence, learning the signs of memory written in creation. And the people said among themselves, “The Light grows not only in our hearts but in the world we restore.” Thus began the Great Awakening of the land, and Abanum’s journey into the Stillplaces became the foundation of Orathite meditation, worship, and reverence for all creation.`
+          ]
+        },
+
+        Light: {
+          1: [
+            `Chapter One – The Washing of the Enemy
+
+In the days when the covenant fire spread from village to village, there lived a young woman named Seriniel, quiet of voice but fierce in heart. She walked often among the wounded, tending to their injuries with gentle hands, for she believed that every scar held a memory waiting to be restored. One evening, while returning from the fields, she found a man collapsed in the dust. His cloak bore the mark of a distant clan, one that had warred against her own people and caused many to live in fear.
+
+Those who passed by whispered, “Leave him. He is our enemy. His suffering is his own doing.” But Seriniel knelt beside the man and touched his trembling hand. His breath was shallow, and the dust of the road clung to his wounds. She felt fear rise in her chest, fear taught by generations who had suffered under his people’s cruelty. Yet beneath the fear she sensed another truth, faint but steady, like a hidden ember.
+
+As she poured water over his wounds, a stillness descended upon her. The Light pressed near. And from within her spirit rose the first Echo she had ever heard: “Mercy is the remembering of who another truly is.” At that moment Seriniel saw the man not as an enemy but as one who had forgotten the Light, just as her own people had once forgotten. Compassion flooded her heart, washing away the hatred others had taught her to carry.
+
+The man opened his eyes and wept, for no kindness had been shown to him in many seasons. When the people saw this, they were shaken, for they expected justice in the form of vengeance, not healing. But Seriniel said to them, “Justice without mercy becomes cruelty. And cruelty is forgetting.” That night, the people spoke of what they had witnessed, and some felt the Light stir within them in a new way. For the first time since the early days of the covenant, mercy rose like dawn across the land.`
+          ],
+          2: [
+            `Chapter Two – The Healing of the Ashen Child
+
+Word of Seriniel spread, not through shouts or proclamations but through softened hearts. One morning, a woman came to her carrying a child pale as winter ash. His breath rattled, and fear clung to his mother like a cloak. The villagers had already declared the child beyond help and blamed the mother, saying she must have displeased Elyon-Orath.
+
+Seriniel rebuked them gently: “Do not speak of the Light as though it punishes the weak. The Light remembers even when we do not.” She brought the child into her home and laid him upon clean cloth. Throughout the night she prayed in silence, calling upon Elyon-Orath not for a miracle of power but for clarity, the kind that reveals how to mend what has been wounded.
+
+As she watched over the child, she felt a trembling within her – not fear, but the stirring of another Echo. “Healing begins when fear is quieted.” She breathed slowly, and the room grew calm around her. She placed her hand upon the child’s chest and remembered every moment of compassion she had ever witnessed. With each memory, the trembling eased, and the child’s breath grew deeper.
+
+When dawn broke, the child stirred and opened his eyes. His mother fell to her knees, tears streaming. The villagers were astonished and asked Seriniel, “How did you heal him? Was this a miracle?” But Seriniel replied, “A miracle is only a moment when remembrance overcomes forgetting. The Light moved not because I commanded it, but because compassion opened the way.”
+
+And the people said among themselves, “In Abanum we learned the covenant; in Seriniel we see how to live it.”`
+          ],
+          3: [
+            `Chapter Three – The Turning of the Stranger
+
+On the outskirts of the valley lived a stranger known only as The Broken One, for he trusted no one and spoke harshly to all. Children feared him, and adults avoided his path. He had once been part of the Circle but left after a bitter dispute, choosing isolation over reconciliation. Many whispered that he was beyond restoration.
+
+Seriniel, hearing this, went to him alone. When she approached, he shouted, “Leave me! I know what they say about me. I am lost to the Light.” She sat upon a stone nearby and answered softly, “No one is lost to the Light. But you have believed fear’s voice for too long.” He spat upon the ground and said, “Fear is all I have left.”
+
+Seriniel listened, not with impatience but with deep compassion. After a long silence she spoke the words that would become one of the great teachings of her book:
+“Do not let another’s forgetting become your excuse to forget.”
+He looked at her, puzzled. She continued: “Those who wounded you forgot the Light. And in hating them, you forgot it too.”
+
+The man’s anger faltered. Tears he had hidden for years gathered in his eyes. Seriniel placed her hand upon his shoulder. At her touch, he felt not pity but recognition – as though someone finally remembered the truth he had buried beneath his pain.
+
+In that moment, a quiet Echo rose within Seriniel: “Reconciliation is the healing of two wounds at once.” She guided him gently back toward the Circle, where forgiveness awaited him not as a demand but as a gift. When the people saw him return, their hearts were softened, and they welcomed him with cautious hope.
+
+From that day forward, the man was no longer called The Broken One, but Restin, meaning “He Who Returned.” And the people learned that reconciliation does not begin with agreement but with compassion.`
+          ],
+          4: [
+            `Chapter Four – The Crowd and the Guilty Woman
+
+A major moment of mercy
+
+In those days a woman of the village was seized by a group of men who dragged her through the streets, shouting that she had broken her covenant vows and brought shame upon her household. They pushed her into the square where the covenant fire burned, and a crowd gathered quickly, fierce with judgment. Some had long envied her beauty, others resented her boldness, and still others simply wished to be seen as righteous by condemning her. Fear disguised as zeal filled the air.
+
+Seriniel heard the shouting and came to the square. The woman lay in the dust, trembling. The men who had brought her forth shouted, “This woman has forgotten the Light! Let her punishment be a warning to all.” Others lifted stones, believing they did justice, though cruelty clung to their hands like soot.
+
+Seriniel stepped between the woman and the crowd. Her voice was calm, but her eyes shone with unshaken resolve. She said, “If forgetting merits condemnation, then who among you remembers perfectly enough to cast the first stone?” Silence fell like night. The people looked at one another uneasily, for each knew the shadows within their own hearts.
+
+Seriniel knelt beside the woman and lifted her gently from the dust. She whispered, “Do not fear. The Light has not abandoned you.” Then she faced the crowd again and declared, “Mercy is the key that opens the way back to remembrance. Without it, justice becomes cruelty, and cruelty deepens forgetting.”
+
+One by one, the stones dropped from trembling hands. Those who had shouted the loudest fled the square in shame. Seriniel guided the woman to her home and said, “Restore what was broken, confess what is true, and renew your path. Remembrance is still yours.”
+
+That day the people learned that judgment without compassion is a betrayal of the covenant, and that mercy restores what anger destroys.`
+          ],
+          5: [
+            `Chapter Five – Teachings on Forgiveness
+
+Short teachings that became Orathite sayings
+
+As Seriniel’s voice spread across the villages, many came to her with wounds not of flesh but of spirit. A man asked, “How can I forgive my brother who deceived me?” A mother asked, “How can I forgive those who mocked my child?” A youth asked, “How can I forgive myself for the things I have done?”
+
+Seriniel sat with them and spoke teachings that would be remembered for generations:
+
+“Forgiveness is not the bending of truth. It is the freeing of the heart.”
+For truth must still be spoken, restitution still made, justice still honored.
+
+“Forgiveness is remembering the Light in another, even when they have forgotten it in themselves.”
+It does not erase wrongs, but it refuses to let wrongs shape the future.
+
+“Forgiveness without repair is a wound wrapped in cloth.”
+Healing requires honesty, responsibility, and restoration.
+
+“If you forgive only when asked, you remain bound to the one who hurt you. If you forgive inwardly, your heart becomes light again.”
+Forgiveness is a restoration of the self before it is a blessing to the other.
+
+“Do not confuse peacekeeping with peace. Peace without truth is just silence pretending to be mercy.”
+Forgiveness must be rooted in reality, not denial.
+
+Those who heard these sayings carried them into their homes, teaching them to their children. And the people began to understand that forgiveness is the art of remembering the Light in the midst of shadow.`
+          ],
+          6: [
+            `Chapter Six – Teachings on Enemies and Boundaries
+
+Reconciling courage with compassion
+
+As Seriniel walked from village to village, she saw that some hearts were troubled not by wounds of the past but by fear of those who harmed them still. A group of farmers approached her saying, “We wish to walk in the Light, but our neighbors have stolen our fields and threatened our families. Must we show mercy even to those who intend us harm?”
+
+Seriniel sat upon a stone and invited them close. “Listen,” she said, “for mercy is not the abandonment of wisdom, nor is compassion the ignoring of danger.”
+
+A young farmer asked, “Then how do we treat those who continue to injure us?”
+Seriniel answered with the Echo rising gently in her spirit:
+
+“You were not made for hatred, but you were also not made for destruction.”
+
+She continued:
+
+“To call an enemy a monster is forgetting.
+To let an enemy continue to harm you is also forgetting.
+But to see an enemy as a wounded soul in need of boundaries—
+that is remembrance.”
+
+The people murmured, trying to grasp her meaning. So she spoke more plainly:
+• “Compassion does not require you to offer your throat to the wolf.”
+• “Set boundaries with courage, not with bitterness.”
+• “Restrain those who do harm, so that they cannot deepen their own forgetting.”
+• “Protect the weak first, even if the one you restrain calls you their enemy.”
+
+A woman asked, “But how do we keep our hearts from becoming hardened by fear and anger?”
+Seriniel replied:
+
+“When you defend yourself or another, do it without hatred.
+Hate binds you to the one who harmed you.
+Compassion frees you from them.”
+
+Then she told them a parable:
+
+“A shepherd once found two wolves fighting near her flock.
+She drove them both away, but she cast no curse upon them.
+For she knew that to hate them would wound her own heart,
+and a wounded heart remembers little.”
+
+The farmers were silent for a long moment. Then an elder asked, “So we are to defend our homes, but without letting fear rule us?”
+Seriniel smiled softly. “Yes. For fear is the first forgetting. When you act from fear, you lose sight of the Light. Act from truth. Act from courage. Act from compassion.”
+
+Finally she spoke a teaching that became law among the Keepers:
+
+“An enemy is not one you must destroy,
+but one you must not allow to destroy you or others.”
+
+And she concluded with this blessing:
+
+“May your boundaries be firm,
+your courage steady,
+your mercy wide,
+and your hatred small.”
+
+The people departed with lighter hearts, understanding for the first time that Orathism does not demand softness—it demands clarity.
+Compassion guided their spirit, boundaries guarded their lives, and the Light guided both.`
+          ],
+          7: [
+            `Chapter Seven – The Parable of the Lost Echo
+
+Seriniel spoke often in parables so that even children could carry the teachings of the Light. One evening, as the covenant fire flickered low, she stood before the people and said:
+
+“Hear the Parable of the Lost Echo.”
+
+“There was once a young woman who lived near a great canyon where sound returned like memory.
+Each morning she would call across the canyon and hear her voice echo back strong and clear.
+But one day, when her heart was troubled with fear and resentment, she shouted into the canyon,
+and no echo returned.
+
+Alarmed, she shouted louder and louder, but still the canyon was silent.
+She believed it had abandoned her.
+In despair, she ran to a wise elder and cried, ‘Why has the canyon forgotten me?’
+
+The elder listened and said,
+‘Child, the canyon has not changed.
+But your voice was filled with bitterness,
+and bitterness does not return as an echo.’
+
+Confused, the young woman asked, ‘How do I hear the echo again?’
+
+The elder placed a hand over her heart and answered,
+‘Speak with truth and compassion.
+Speak with courage.
+Speak with remembrance.
+The canyon will answer when your voice remembers itself.’
+
+The next morning, the young woman returned to the canyon.
+She breathed deeply, released her anger, and spoke softly:
+‘I remember the Light.’
+
+And the canyon answered.”
+
+When Seriniel finished, she looked upon the people and said:
+
+“The Echo you receive is shaped by the voice you send.
+If you speak from cruelty, the world becomes silent.
+If you speak from remembrance, the world answers with Light.”
+
+And the people carried this teaching into their homes, finding that when they spoke kindly, kindly they were heard.`
+          ],
+          8: [
+            `Chapter Eight – The Parable of the Wounded Tree
+
+As the seasons changed, Seriniel saw that many among the people carried not wounds of the flesh but deep grief: losses that hollowed the heart, betrayals that stole trust, failures that left shame like ashes. She knew they needed a teaching to understand suffering without falling into despair.
+
+So one morning she led them into the valley where a great tree stood — tall, ancient, and scarred. Lightning had struck it long ago, leaving a deep wound in its trunk. Half its branches were bare, and yet it still reached toward the sky.
+
+Seriniel placed her hand upon the cracked bark and said:
+
+“Listen, all who have suffered. Hear the Parable of the Wounded Tree.”
+
+“There was a tree that stood alone on a hillside,
+and one night a storm struck with great violence.
+A bolt of lightning split its trunk,
+scorching it black and leaving it wounded.
+
+Travelers who saw the tree shook their heads and said,
+‘It will surely die.
+No tree can survive such a wound.’
+
+But the tree did not die.
+
+Through winter it stood silent, its branches bare,
+drinking what little strength the soil could give.
+Many mocked it, saying, ‘It clings to life for nothing.’
+
+Spring came slowly, and small shoots appeared on the unburned side of the trunk.
+They were fragile, trembling, easy to overlook.
+But they grew.
+
+Years passed, and the wounded side remained barren,
+yet the living side flourished with leaves and fruit.
+
+Birds nested in its branches.
+Travelers found shade beneath it.
+Children played at its roots.
+
+And though half the tree was scarred and lifeless,
+the other half became stronger than trees that had never been struck.
+
+Then one day an elder said,
+‘This tree has become a teacher.
+For it shows us that a wound does not end a life —
+it shapes the life that follows.’
+
+Another said,
+‘The tree is divided, yet it is whole.
+Its suffering has not destroyed it,
+but given it a kind of wisdom.’
+
+And still another said,
+‘The tree does not hide its wound.
+It carries it openly,
+and its honesty gives us courage.’
+
+The tree remained thus for generations,
+neither healed nor broken,
+but living with both truth and strength.”
+
+Seriniel turned to the people and said:
+
+“So it is with all who suffer.”
+• “You are not less whole because of your wounds.”
+• “The Light does not demand that suffering vanish — only that it not poison your remembrance.”
+• “The wounded parts of your life may never bloom again, but the living parts can grow stronger than before.”
+
+Then she placed her hand again on the tree’s scar and spoke a teaching that became a comfort for generations:
+
+“A wound that is carried with honesty becomes a place where the Light can dwell.”
+
+The people wept softly, for many had long believed that suffering meant Elyon-Orath had forgotten them. Seriniel assured them:
+
+“Suffering is not abandonment.
+It is the place where courage learns to breathe.”
+
+She blessed the people, and from that day, many who had hidden their pain began to speak of it openly, finding that truth shared became Light shared — and grief shared became grief lifted.`
+          ],
+          9: [
+            `Chapter Nine – The Night of Bitter Rain
+
+One year, a drought fell upon the land. Crops withered, wells dried, and fear spread as quickly as dust on the wind. The people prayed, but the sky remained empty and hard. Tension rose between families; accusations flew; old grudges resurfaced.
+
+On the darkest night of that season, a storm finally gathered. But instead of bringing refreshment, the rain came heavy and cold, biting like frost. The people huddled in their homes, listening to the storm beat upon their roofs.
+
+Seriniel walked out into the rain.
+
+Those who saw her called out, “What are you doing? The night is cruel!”
+She answered, “The people’s hearts are drowning long before their bodies. I must walk among them.”
+
+She went door to door, calling families into the Hall of Echoes. Reluctantly they came, dripping and shivering, bringing their fear and bitterness with them.
+
+When all had gathered, Seriniel stood at the center and spoke:
+
+“This storm is not punishment. It is a mirror.”
+
+The people murmured.
+
+She continued:
+
+“Your hearts have become like this night — dark, cold, and full of resentment.
+The sky is only echoing what you carry.”
+
+A man shouted, “Then what are we to do? Pray harder? Sacrifice more?”
+Seriniel shook her head gently.
+
+“No. You must remember each other.”
+
+She called forth families who had grown estranged, rivals who had turned into enemies, neighbors who no longer spoke. She guided them through the Trial of Truth — confession, listening, and repair — until voices cracked and tears rose.
+
+As they reconciled in the Hall, the storm outside slowly softened. The bitter rain eased into a gentle drizzle.
+
+Seriniel lifted her hands and said:
+
+“When you remember each other, the world remembers too.”
+
+The people left the Hall changed. Some repaired old fences the next morning; others shared what little food they had; still others knelt in prayer for the first time in many months.
+
+And though the drought did not end immediately, the people’s hearts were no longer dry.`
+          ],
+          10: [
+            `Chapter Ten – The Sermon of the Light
+
+When Seriniel knew her time as a wandering teacher was drawing to a close, she gathered all the circles of the land to a great hillside overlooking the plains. Thousands came — elders leaning on staffs, children clutching their parents, the fearful, the hopeful, the wounded, the healed.
+
+She stood upon a rock, the wind tugging gently at her cloak, and delivered the teaching that became known as The Sermon of the Light, the heart of her life’s work.
+
+“Hear me, people of the covenant.
+You were not made for fear.
+You were not made for hatred.
+You were not made for cruelty.
+You were made for Light.”
+
+“Fear is the first forgetting.
+Courage is the first remembering.”
+
+“Cruelty is a lie the heart tells when it has forgotten its own worth.”
+
+“Hurt others, and you dim yourself.
+Heal others, and you restore yourself.”
+
+“Justice without mercy becomes vengeance.
+Mercy without truth becomes weakness.
+But justice and mercy together are the Light.”
+
+“No person is your enemy by nature.
+Your enemy is one who has forgotten the Light
+and tries to make you forget it too.”
+
+“Do not become like those who harm you.
+Set boundaries, defend the weak,
+but do not allow hatred to live in your heart.
+Hatred is the shadow that eats the spirit.”
+
+“When someone betrays you,
+remember who they were before forgetting took them.
+If they return, receive them.
+If they do not, release them.”
+
+“Do not carry shame as a chain.
+Let it be a teacher, not a prison.”
+
+“When you fail, confess with honesty.
+When you break, repair with courage.
+When you forget, return with humility.”
+
+“The Light is nearer than breath
+and faithful beyond every shadow.”
+
+“The world remembers the Light.
+Every act of compassion strengthens its memory.
+Every act of cruelty weakens it.”
+
+“Walk gently.
+Speak truth.
+Let your life be a mirror of the One who remembers.”
+
+At the end of her sermon, Seriniel raised her hands and blessed the people:
+
+“May your hearts be wide with mercy,
+your voices steady with truth,
+your hands quick to heal,
+your spirit firm in courage.
+May you walk as bearers of Light
+in a world that forgets too easily.
+And may the Echo of Elyon-Orath
+rise within you all your days.”
+
+When she finished, the people were silent — not out of confusion, but because something deep within them had awakened. Families embraced, rivals forgave, strangers held hands.
+
+And the Light Layer of the Book of Echoes was born.`
+          ]
+        },
+
+        Justice: {
+          1: [
+            `Chapter One – Dathar’s Resonant Moment
+
+Justice as remembrance
+
+In the early days after Seriniel’s teachings spread through the land, disputes grew among the people. Some argued over land, others over promises broken, and still others over debts never repaid. Mercy had awakened hearts, but many still lacked the structure to live rightly.
+
+One morning, two families stood before the Hall of Echoes, each accusing the other of theft. Voices rose, anger flared, and the peace of the covenant trembled. The Keepers tried to mediate, but each side insisted the other lied.
+
+Dathar, who until then had spoken little, stepped between them. He examined their claims, listened to both stories, studied the land, and traced the old border stones with his hands. Then in the quiet of dawn, an Echo rose within him — sharp, steady, unmistakable:
+
+“Justice is the spine of remembrance.”
+
+He understood: mercy softens the heart, but justice keeps memory from collapsing into chaos.
+
+Dathar returned and declared the truth plainly. He corrected the wronged markers. He required restitution, not punishment. He guided both families into the Trial of Truth until they confessed where fear and pride had clouded their words.
+
+And when peace was restored, he said:
+
+“Where justice is absent, the covenant falters.
+Where truth is ignored, the Light dims.
+Let fairness be the ground we walk upon.”
+
+From that day, the people sought Dathar when disputes arose, for they saw that his decisions neither favored the strong nor crushed the weak. And the Echo of Justice began to take root among them.`
+          ],
+          2: [
+            `Chapter Two – The Boundaries of the Covenant
+
+Structure, protection, responsibility
+
+Seeing how confusion often led to harm, Dathar gathered the people and said:
+
+“A community without boundaries forgets itself.”
+
+He taught them the Laws of Right Order — not chains, but remembrances to protect the vulnerable and keep the covenant unbroken.
+
+He declared:
+
+1. Protection of the weak
+• No child is to be struck in anger.
+• No widow or elder is to be ignored or exploited.
+• No traveler is to be mistreated, for all people walk through seasons of need.
+
+2. Honesty in work and trade
+• Weights must be true.
+• Payment must be fair.
+• Deception in profit is a wound against the Light.
+
+3. Boundaries between households
+• Property lines must be honored.
+• Promises between neighbors must be kept or repaired.
+• Privacy is to be respected, for secrets misused lead to forgetting.
+
+4. Conduct in speech
+• Words are echoes of the heart.
+• Speech meant to wound is considered a breach of the covenant.
+• Truth is required, but truth used as a weapon is forbidden.
+
+Dathar taught:
+
+“Boundaries do not restrict love; they protect it.
+Boundaries do not hinder freedom; they guard it from harm.”
+
+Thus, the people learned that order is not the enemy of compassion —
+it is the framework in which compassion becomes possible.`
+          ],
+          3: [
+            `Chapter Three – The Covenant of Union
+
+Marriage, fidelity, responsibility, and honor
+
+Dathar saw that relationships too often fractured under desire, jealousy, or carelessness. Many were wounded by betrayal; others misused affection for selfish gain. So he gathered the people and spoke of covenant unions, the bond traditionally formed between husband and wife within Orathism.
+
+He said:
+
+“A covenant union is not made in passion but in remembrance.
+It is a vow of two lives intertwined with truth.”
+
+He taught the people:
+
+1. Fidelity is a pillar of remembrance
+
+To promise yourself to another is to bind your memory to theirs.
+To betray that promise is to tear both hearts and dim the Light within them.
+
+Dathar declared:
+
+“Unfaithfulness is not merely an act —
+it is the forgetting of a vow entrusted to the Light.”
+
+So the people understood that cheating wounds more than a household; it wounds the entire covenant.
+
+2. Husband and wife as the traditional Orathite bond
+
+Within the Law Layer, Dathar described the traditional form of union:
+• A man and a woman joining in covenant
+• Promising honesty, loyalty, mutual protection
+• Becoming “two roots growing toward one Light”
+
+He taught that this union symbolizes the harmony of strength and gentleness, memory and renewal, action and reflection.
+
+But Dathar also said:
+
+“Let no one be despised for walking a different path of companionship.
+The Light judges according to truth and intention, not the form of a bond.”
+
+This preserved Orathite tradition without condemning anyone.
+
+3. Desire must be guided by remembrance
+
+Dathar warned against “Restless Longing” — desire that forgets responsibility.
+
+He said:
+
+“Desire without responsibility is like fire without a hearth —
+it burns what it should warm.”
+
+Restless Longing includes:
+• seeking intimacy to fill loneliness
+• joining with someone without honesty
+• pursuing pleasure at the cost of another’s dignity
+• using affection to manipulate or control
+• forming unions without covenant or commitment
+
+He declared:
+
+“Let desire be rooted, not wandering.
+Let affection be truthful, not hidden.
+Let intimacy be a joining of lives, not a moment stolen in shadow.”
+
+4. The Blessing of Loyal Union
+
+For those entering the traditional covenant, Dathar taught a blessing:
+
+“May your hearts remember together.
+May truth guard your bond.
+May courage steady your steps.
+May betrayal never find a place among you.”
+
+And he said:
+
+“A faithful union strengthens the Light in a household
+and becomes a shelter for the weary.”
+
+5. Responsibilities of partners
+
+He spoke plainly:
+• Each partner must protect the other’s dignity.
+• Each must speak truth even when it trembles.
+• Each must repair quickly when they wound the other.
+• Each must keep their vows before Elyon-Orath.
+
+And he ended with:
+
+“Where loyalty dwells, the Light dwells also.”`
+          ],
+          4: [
+            `Chapter Four – Laws of Protection for the Vulnerable
+
+Guarding those easily forgotten
+
+Dathar gathered the people and stood upon a rise where all could see him. He spoke with the steady voice of one who carried the weight of justice upon his shoulders.
+
+“Strength is a gift,” he said, “but it becomes a curse when used to crush the weak. A people is measured not by the power of its rulers but by the safety of its most vulnerable.”
+
+Then he set forth the Laws of Protection:
+
+1. Protection of Children
+• No child is to be struck in anger or belittled in cruelty.
+• Children are to be taught gently, corrected firmly, and guided with patience.
+• Their voices are to be heard in counsel when matters affect them, for truth lives even in small mouths.
+
+2. Protection of Elders
+• Elders are to be provided for, visited, and honored.
+• No elder may be left in hunger or loneliness.
+• Their wisdom is to be recorded in the Book of Echoes of each village.
+
+3. Protection of Widows and the Unpartnered
+• They shall not be left destitute.
+• The community must share their harvest with them.
+• They are to be defended against exploitation.
+
+4. Protection of Travelers and Strangers
+• No stranger may be shamed, extorted, or denied water.
+• Hospitality is not required in luxury, but in dignity.
+• A traveler is to be welcomed at the fire for one night, unless harm follows him.
+
+5. Protection from Abuse
+• A household leader who rules through fear has broken the covenant.
+• No person may use their strength or authority to control another’s spirit.
+• Those who threaten the vulnerable must face the Path of Repair with urgency.
+
+Dathar concluded:
+
+“The Light bends to shield the weak first.
+Whoever harms the vulnerable harms the heart of Elyon-Orath.”
+
+And the people trembled, for they understood the spiritual weight of their responsibilities.`
+          ],
+          5: [
+            `Chapter Five – The Ethics of Wealth and Work
+
+Fairness as remembrance
+
+Dathar saw that the more prosperous the villages became, the more temptation arose to misuse gain for selfish ends. So he gathered the workers, traders, farmers, and artisans and spoke:
+
+“Work is sacred because it shapes the world.
+Wealth is sacred because it can heal or wound.”
+
+Then he taught the Ethics of Wealth:
+
+1. Honest Labor
+• No worker is to cheat their craft or deceive those who rely on their skill.
+• A tool maintained with care is a sign of remembrance.
+• Sloth that burdens others is forgetting.
+
+2. Fair Trade
+• Weights and measures must be true.
+• Prices must be honest.
+• To demand more from the desperate is cruelty.
+
+3. The Responsibility of the Prosperous
+• Those with abundance must share, not from pity but from covenant.
+• A wealthy person who hoards burdens the entire community.
+• Generosity is not charity; it is justice.
+
+4. Avoiding Exploitation
+• No employer may withhold wages.
+• No trader may manipulate scarcity to gain unjust profit.
+• No craftsperson may conceal a flaw that endangers others.
+
+5. The Sabbath of Work
+
+Dathar commanded that every seventh day:
+• Workers rest.
+• Tools rest.
+• Animals rest.
+• Debts are not collected.
+• No bargains are struck.
+• No field is plowed.
+
+He said:
+
+“Rest is remembrance.
+A person who never rests forgets who they are.”
+
+And the people saw that justice was not only judgment — it was fairness in every breath of life.`
+          ],
+          6: [
+            `Chapter Six – The Path of Repair
+
+Healing wrongdoing through truth, responsibility, and ritual
+
+As disputes continued to arise, Dathar saw an enduring truth: punishment did not heal; it only silenced. So he taught the people the most important law of all:
+
+“When a person breaks the covenant, let them walk the Path of Repair.
+For repair restores what punishment cannot.”
+
+He explained that wrongdoing is a form of forgetting, and repair is a return to remembrance.
+
+The Path of Repair has five steps, each accompanied by a tradition to guide the heart.
+
+1. The Step of Truth – Tradition of the Cleansing Breath
+
+The wrongdoer must speak honestly what they have done, without excuse, exaggeration, or hiding.
+
+Before speaking, they perform the Cleansing Breath, a daily ritual that Dathar now tied to repentance:
+• Inhale deeply through the nose.
+• Hold the breath for two heartbeats.
+• Exhale slowly while touching a hand to the chest.
+
+This tradition symbolizes releasing fear and preparing the heart for truth.
+
+“Words spoken without cleansing are clouded.
+Truth spoken with intention clears the way for Light.”
+
+2. The Step of Acknowledgment – Tradition of the Lowered Head
+
+The wrongdoer must look upon the person they harmed — if safe — and say:
+
+“I see the wound I caused.”
+
+They bow their head once, slowly, not in humiliation but in recognition.
+This ritual reminds them that harm is not abstract; it touches a life.
+
+3. The Step of Restoration – Tradition of the Offering Hand
+
+The wrongdoer must restore what they damaged:
+• returning stolen goods
+• repairing broken property
+• rebuilding lost trust
+• restoring honor through acts of service
+
+At the start of this step, they extend one open hand — the Offering Hand — symbolizing willingness to repair, not demand forgiveness.
+
+“An open hand heals more than a clenched one.”
+
+4. The Step of Service – Tradition of Seven Days’ Aid
+
+The wrongdoer must serve the harmed person or community for seven days in a task chosen by the Council of Keepers.
+
+This is not humiliation; it is participation in healing.
+
+The tradition of Seven Days’ Aid trains the heart toward responsibility, humility, and renewed belonging.
+
+5. The Step of Rejoining – Tradition of the Marked Stone
+
+When the Path of Repair is complete, the person lays a small stone — marked with a symbol of Light — at the edge of the Hall of Echoes.
+
+The stone symbolizes:
+• the wrong that was repaired
+• the lesson learned
+• a memory added to the community
+• a boundary restored
+
+As more stones gathered, each Hall formed a Circle of Remembrance, a living record of repaired relationships.
+
+“Let every stone remind you that the world is mended not by punishment but by courage to repair.”
+
+Dathar declared:
+
+“Let tradition shape your days,
+so that forgetting finds no place to root.”
+
+He reminded them:
+• The Cleansing Breath purifies intention.
+• The Lowered Head teaches humility.
+• The Offering Hand awakens responsibility.
+• The Seven Days’ Aid restores belonging.
+• The Marked Stone seals the covenant renewed.
+
+For the first time, justice felt like remembrance, not fear.
+And communities that once fractured under disputes began to mend.`
+          ],
+          7: [
+            `Chapter Seven – The Veil of Cruelty
+
+How forgetting becomes harm
+
+Dathar saw that not all harm came from ignorance or fear. Some wounds were born of cruelty — the darkest form of forgetting — when a person used their strength or words to dominate another. So he gathered the people at dusk, when the shadows lengthen, and said:
+
+“Cruelty does not begin with hatred.
+It begins with forgetting that the other is like yourself.”
+
+He taught that cruelty wears a veil — a covering over the heart that hides the humanity of another. And he described the five layers of this veil:
+
+1. The Veil of Dismissal
+When someone’s suffering is mocked or ignored.
+“A heart that dismisses suffering is taking the first step into darkness.”
+
+2. The Veil of Mockery
+When words become weapons meant to humiliate.
+“Mockery is the seed of tyranny.”
+
+3. The Veil of Domination
+When strength is used to make another fearful.
+“Whoever rules through fear has forgotten the Light.”
+
+4. The Veil of Exploitation
+When someone’s weakness is used for profit or pleasure.
+“To exploit is to wound the covenant itself.”
+
+5. The Veil of Harm
+When cruelty becomes action — violence, betrayal, coercion, neglect.
+“Beyond this veil, remembrance grows faint.”
+
+“When you see the first veil begin to fall over another’s eyes, speak gently to them.
+When you see the second, correct them.
+When you see the third, restrain them.
+When you see the fourth or fifth, bring them to the Council.”
+
+“Allow cruelty to spread, and the people will forget who they are.”
+
+And the people trembled, for they had seen cruelty in their own homes and fields, and they understood how easily the Veil could descend.`
+          ],
+          8: [
+            `Chapter Eight – Laws of Leadership
+
+Authority as service, not dominance
+
+As villages grew and communities expanded, disputes multiplied. People needed guidance, but power easily corrupts. So Dathar spoke the Laws of Leadership, ensuring no leader would forget the covenant.
+
+“A leader is not above the people.
+A leader is the first to remember.”
+
+1. Choosing Leaders
+
+Leaders must be:
+• slow to anger
+• faithful in vows
+• truthful even when truth costs
+• wise enough to admit when they are wrong
+• courageous enough to correct injustice
+
+No leader may be chosen for wealth, lineage, or popularity alone.
+
+2. Limits on Leadership
+
+• Leaders may not judge cases involving their own family.
+• Leaders may not punish — only guide the Path of Repair.
+• Leaders may not hoard wealth or exploit their position.
+• Leaders must record their rulings publicly in the Record of Echoes.
+
+3. Accountability
+
+If a leader:
+• uses fear to control,
+• hides wrongdoing,
+• or acts with cruelty,
+
+they are brought before the Circle of Counsel and may be removed.
+
+“A leader who cannot be questioned must not be followed.”
+
+4. The Burden of Leadership
+
+Those who lead must perform The Vigil of the Three Lights once each season:
+1. A light for truth
+2. A light for compassion
+3. A light for courage
+
+“Authority is a fire.
+If left unattended, it burns all it touches.”
+
+The people saw that leadership was not privilege — it was discipline.`
+          ],
+          9: [
+            `Chapter Nine – The Circle of Counsel
+
+How Orathites resolve disputes and guide the community
+
+When conflicts grew too heavy for one leader alone, Dathar established the Circle of Counsel, a body of respected elders, Keepers, and chosen representatives.
+
+“Truth is clearer when many eyes see it.”
+
+1. The Structure of the Circle
+• Two elders
+• Two Keepers of Memory
+• Two representatives chosen by the people
+• One impartial recorder (who cannot vote)
+
+Each sits in a ring around the Covenant Flame, symbolizing equality.
+
+2. How Cases Are Heard
+
+• Both sides speak without interruption.
+• Witnesses are heard.
+• The Circle asks questions to reveal intention, not only action.
+• When lies are suspected, the Trial of Truth is invoked.
+• A decision is reached unanimously, or the case is carried to Dathar.
+
+3. Responsibilities of the Circle
+
+They are to:
+• guide the Path of Repair
+• protect the vulnerable
+• counsel leaders
+• settle disputes over land, vows, trade, or harm
+• bless unions and mediate separations
+• record major decisions for future generations
+
+4. Ritual of Opening
+
+Before each meeting, the Circle performs the Three Touches of Clarity:
+1. Touch the brow (for truth)
+2. Touch the lips (for compassion in speech)
+3. Touch the heart (for courage)
+
+“The Circle may speak with one voice,
+though made of many hearts.”
+
+And so justice became a shared responsibility, not the burden of a single authority.`
+          ],
+          10: [
+            `Chapter Ten – The Covenant of Justice
+
+When Dathar felt his teachings nearing completion, he gathered the people at the foot of a great hill, beneath the shimmering night sky. Torches lined the valley, forming a circle of light. All villages sent representatives, leaders, widows, workers, and children.
+
+Dathar stood at the center and proclaimed the Covenant of Justice — the foundation upon which all other laws would rest.
+
+“Justice is not the balancing of scales.
+Justice is the remembering of truth.”
+
+Justice is:
+• restoration
+• protection
+• accountability
+• the prevention of fear
+• the strengthening of community
+• the honoring of dignity
+
+Injustice is:
+• fear
+• dominance
+• corruption
+• abandonment
+• forgetting
+
+“Where justice thrives, the Light grows strong.”
+
+He named the Four Pillars of Justice:
+
+Pillar One – Truth
+Pillar Two – Responsibility
+Pillar Three – Protection
+Pillar Four – Repair
+
+“Punishment ends the moment;
+repair sustains the future.”
+
+Each person recited vows:
+• “I vow to speak truth.”
+• “I vow to honor boundaries.”
+• “I vow to protect the weak.”
+• “I vow to restore what I harm.”
+• “I vow to uphold justice without cruelty.”
+
+Leaders vowed:
+• “I lead not to rule, but to serve.”
+• “I do not hide my errors.”
+• “I protect all under my care.”
+• “I stand accountable before Elyon-Orath.”
+
+“A just community is not made by leaders alone.
+Every person must guard the covenant.”
+
+The people vowed:
+• “If I see cruelty, I will speak.”
+• “If I see harm, I will intervene.”
+• “If I see forgetting, I will remind.”
+• “If I see injustice, I will restore.”
+
+Each family placed a stone in a great circle.
+
+“These stones will stand long after we are dust.
+Let them remind the generations that justice is not a moment —
+it is a way of life.”
+
+“Walk in justice,
+with truth upon your lips,
+compassion in your hands,
+courage in your breath,
+and remembrance in your heart.
+Let cruelty find no home among you,
+and let repair be the mark of your people.
+By these things shall you be known
+as children of the Light.”
+
+And with that, the Law Layer — the Book of Dathar — was complete.`
+          ]
+        },
+
+        Witness: {
+          // future: Mira’s testimonies
+        }
+      },
+
+      ONV: {
+        // future second translation (same structure as OSV)
+      }
+    };
+
+    // NAV HANDLING
+    const navButtons = document.querySelectorAll(".nav-button");
+    const sections = document.querySelectorAll("main section");
+
+    navButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        navButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const target = btn.getAttribute("data-target");
+        sections.forEach(sec => {
+          sec.classList.toggle("active-section", sec.id === target);
+        });
+      });
+    });
+
+    // SCRIPTURE UI
+    const bookSelect = document.getElementById("bookSelect");
+    const chapterButton = document.getElementById("chapterButton");
+    const chapterPanel = document.getElementById("chapterPanel");
+    const chapterGrid = document.getElementById("chapterGrid");
+    const versionSelect = document.getElementById("versionSelect");
+    const scriptureBookTitle = document.getElementById("scriptureBookTitle");
+    const scriptureChapterTitle = document.getElementById("scriptureChapterTitle");
+    const scriptureBody = document.getElementById("scriptureBody");
+
+    let currentBook = "Echoes";
+    let currentChapter = 1;
+
+    function initBooks() {
+      Object.keys(bookMeta).forEach(key => {
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = bookMeta[key].name;
+        bookSelect.appendChild(opt);
+      });
+      bookSelect.value = currentBook;
+    }
+
+    function buildChapterGrid() {
+      chapterGrid.innerHTML = "";
+      const count = bookMeta[currentBook].chapters;
+      if (!count) {
+        chapterButton.textContent = "-";
+        return;
+      }
+      for (let i = 1; i <= count; i++) {
+        const cell = document.createElement("div");
+        cell.className = "chapter-cell" + (i === currentChapter ? " active" : "");
+        cell.textContent = i;
+        cell.addEventListener("click", () => {
+          currentChapter = i;
+          chapterButton.textContent = i;
+          chapterPanel.style.display = "none";
+          renderScripture();
+        });
+        chapterGrid.appendChild(cell);
+      }
+    }
+
+    function renderScripture() {
+      const version = versionSelect.value;
+      const meta = bookMeta[currentBook];
+      scriptureBookTitle.textContent = meta.name;
+      scriptureChapterTitle.textContent = meta.chapters
+        ? "Chapter " + currentChapter
+        : "No chapters available yet";
+
+      scriptureBody.innerHTML = "";
+      const bookData = scriptureData[version][currentBook] || {};
+      const verses = bookData[currentChapter] || [];
+
+      verses.forEach((text, idx) => {
+        const line = document.createElement("div");
+        line.className = "verse-line";
+
+        const num = document.createElement("span");
+        num.className = "verse-num";
+        num.textContent = idx + 1;
+
+        const spanText = document.createElement("span");
+        spanText.textContent = " " + text;
+
+        line.appendChild(num);
+        line.appendChild(spanText);
+        scriptureBody.appendChild(line);
+      });
+
+      if (!verses.length) {
+        const line = document.createElement("div");
+        line.className = "verse-line";
+        line.textContent = meta.chapters
+          ? "No text has been added for this chapter yet."
+          : "This book has not been filled in yet.";
+        scriptureBody.appendChild(line);
+      }
+
+      buildChapterGrid();
+    }
+
+    // events
+    bookSelect.addEventListener("change", () => {
+      currentBook = bookSelect.value;
+      currentChapter = 1;
+      chapterButton.textContent = bookMeta[currentBook].chapters ? "1" : "-";
+      renderScripture();
+    });
+
+    versionSelect.addEventListener("change", renderScripture);
+
+    chapterButton.addEventListener("click", () => {
+      if (!bookMeta[currentBook].chapters) return;
+      const display = chapterPanel.style.display;
+      chapterPanel.style.display = display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!chapterPanel.contains(e.target) && e.target !== chapterButton) {
+        chapterPanel.style.display = "none";
+      }
+    });
+
+    // init
+    initBooks();
+    renderScripture();
+  </script>
+</body>
+</html>
